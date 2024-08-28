@@ -60,6 +60,8 @@ _keyevent_get() {
     _keyevent
   if [[ "${_key}" == "Space" ]]; then
     _keyevent=62
+  elif [[ "${_key}" == "Back" ]]; then
+    _keyevent=4
   elif [[ "${_key}" == "Enter" ]]; then
     _keyevent=66
   elif [[ "${_key}" == "Down" ]]; then

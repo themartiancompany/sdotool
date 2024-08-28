@@ -27,52 +27,6 @@ _requirements() {
       "tsu"
 }
 
-_server_shutdown() {
-  su \
-    -c \
-    "killall ${_app}" || \
-    _msg_info \
-      "app closed"
-}
-
-_prefs_check() {
-  local \
-    _password \
-    _msg=()
-  _password="$( \
-    _key_value_get \
-      "password")"
-  if [[ "${_password}" == *"'"* ]]; then
-    _msg=(
-      "illegal character ' (apostrophe),"
-      "removing and enabling start at boot"
-    )
-    _msg_warning \
-      "${_msg[*]}"
-    _server_shutdown
-    _key_value_default \
-      password 
-    _boot_enable
-  elif [[ "${_password}" == "" ]]; then
-    _msg=(
-      "password empty, setting new one,"
-      "shutting down server"
-    )
-    _msg_warning \
-      "${_msg[*]}"
-    _server_shutdown
-    _key_value_default \
-      password
-    _boot_enable
-    # activity-launch \
-    #   "${_app}" \
-    #   "MainActivity"
-  else
-    _msg_info \
-      "OK"
-  fi
-}
-
 _key_send() {
   local \
     _key="${1}" \
@@ -83,16 +37,18 @@ _key_send() {
       "${_key}")"
   if [[ "${_keyevent}" == "" ]]; then
     _msg_error \
-      "Key not recorded."
+      "key not recorded" \
+      1
   fi
+  _msg_error \
+    "sending ${_key} -> ${_keyevent}"
   cmd=(
     input
       keyevent
       "${_keyevent}"
     )
-  su \
-    -c \
-    "${_cmd[*]}"
+  sudo \
+    "${_cmd[@]}"
 }
 
 _key_send() {

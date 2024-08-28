@@ -20,7 +20,6 @@ install: install-scripts install-doc
 install-scripts:
 
 	install -vDm 755 sdotool/sdotool "$(BIN_DIR)/sdotool"
-	install -vDm 755 sdotool/key2keyevent "$(BIN_DIR)/key2keyevent"
 
 install-doc:
 

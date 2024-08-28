@@ -45,7 +45,7 @@ _key_send() {
     _msg_info \
       "sending ${_key} -> ${_keyevent}"
   fi
-  cmd=(
+  _cmd=(
     input
       keyevent
       "${_keyevent}"

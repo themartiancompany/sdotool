@@ -41,7 +41,8 @@ _key_send() {
       "${_key}")"
   if [[ "${_keyevent}" == "" ]]; then
     _keyevent="$( \
-      key2keyevent)"
+      key2keyevent \
+        "${_key}")"
     if [[ "${_keyevent}" == "" ]]; then
       _msg_error \
         "key not recorded" \

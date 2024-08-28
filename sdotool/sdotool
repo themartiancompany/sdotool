@@ -32,6 +32,8 @@ _key_send() {
     _key="${1}" \
     _keyevent \
     _cmd=()
+  _msg_info \
+    "Sending key '${_key}'"
   _keyevent="$( \
     _keyevent_get \
       "${_key}")"

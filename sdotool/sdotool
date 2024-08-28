@@ -242,7 +242,7 @@ app_opts=(
   "$( \
     _get \
       "target" \
-      "command")"
+      "key")"
 )
 _sdotool \
   "${app_opts[@]}"

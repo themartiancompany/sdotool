@@ -23,6 +23,8 @@ _global_variables() {
 
 _requirements() {
     _check_cmd \
+      "key2keyevent"
+    _check_cmd \
       "su" \
       "tsu"
 }
@@ -38,9 +40,15 @@ _key_send() {
     _keyevent_get \
       "${_key}")"
   if [[ "${_keyevent}" == "" ]]; then
-    _msg_error \
-      "key not recorded" \
-      1
+    _keyevent="$( \
+      key2keyevent)"
+    if [[ "${_keyevent}" == "" ]]; then
+      _msg_error \
+        "key not recorded" \
+        1
+    fi
+    _msg_info \
+      "sending ${_key} -> ${_keyevent}"
   else
     _msg_info \
       "sending ${_key} -> ${_keyevent}"

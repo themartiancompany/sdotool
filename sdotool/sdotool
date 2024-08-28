@@ -23,7 +23,8 @@ _global_variables() {
 
 _requirements() {
     _check_cmd \
-      "key2keyevent"
+      "key2keyevent" \
+      "android-input-utils"
     _check_cmd \
       "su" \
       "tsu"

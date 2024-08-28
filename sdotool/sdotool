@@ -66,9 +66,9 @@ _keyevent_get() {
     _keyevent=19
   elif [[ "${_key}" == "Up" ]]; then
     _keyevent=20
-  elif [[ "${_key}" == "Right" ]]; then
-    _keyevent=21
   elif [[ "${_key}" == "Left" ]]; then
+    _keyevent=21
+  elif [[ "${_key}" == "Right" ]]; then
     _keyevent=22
   elif [[ "${_key}" == "Unlock" ]]; then
     _keyevent=82

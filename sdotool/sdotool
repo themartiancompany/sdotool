@@ -112,7 +112,7 @@ _key_send() {
   elif [[ "${_key}" == "Left" ]]; then
     _keyevent=22
   elif [[ "${_key}" == "Unlock" ]]; then
-    _keyevent=22
+    _keyevent=82
   else
     _keyevent=""
   fi

@@ -39,9 +39,10 @@ _key_send() {
     _msg_error \
       "key not recorded" \
       1
+  else
+    _msg_info \
+      "sending ${_key} -> ${_keyevent}"
   fi
-  _msg_error \
-    "sending ${_key} -> ${_keyevent}"
   cmd=(
     input
       keyevent
@@ -51,7 +52,7 @@ _key_send() {
     "${_cmd[@]}"
 }
 
-_key_send() {
+_keyevent_get() {
   local \
     _key="${1}" \
     _keyevent

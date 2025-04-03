@@ -1,6 +1,27 @@
 #!/usr/bin/env bash
+
+# SPDX-License-Identifier: AGPL-3.0
+
+#    Sdotool
+#    ----------------------------------------------------------------------
+#    Copyright © 2024, 2025  Pellegrino Prevete
 #
-# SPDX-License-Identifier: AGPL-3.0-or-later
+#    All rights reserved
+#    ----------------------------------------------------------------------
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 
 _bin="$( \
   dirname \
@@ -8,9 +29,17 @@ _bin="$( \
       command \
         -v \
 	  "env")")"
-_lib="${_bin}/../lib"
-source \
-  "${_lib}/libcrash-bash/crash-bash"
+_lib="$( \
+  realpath \
+    "${_bin}/../lib")"
+_crash_bash="${_lib}/libcrash-bash/crash-bash"
+_libevm="${_lib}/libevm/libevm"
+_sourced \
+  "${_crash_bash}" 2>/dev/null || \
+  source \
+    "${_crash_bash}"
+_sourced \
+  "${_libevm}"
 
 # shellcheck disable=SC2034
 _global_variables() {
@@ -135,13 +164,15 @@ _usage() {
         ENDUSAGETEXT || true
 command-line Surfaceflinger automation tool
 usage:
-  $(_get "app" "name")
+  ${app_name}
     [options]
     <command>
     (<argument>)
+
   commands:
      key         Send key event corresponding to symbol
        <symbol>
+
   options:
      -h                   This message.
      -c                   Enable color output

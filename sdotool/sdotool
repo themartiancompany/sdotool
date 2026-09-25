@@ -162,7 +162,9 @@ _usage() {
       -d '' \
       _usage_text << \
         ENDUSAGETEXT || true
+
 command-line Surfaceflinger automation tool
+
 usage:
   ${app_name}
     [options]

@@ -33,6 +33,11 @@ library, the `key2keyevent` command from
   https://github.com/themartiancompany/android-input-utils)
 and it uses root to send events.
 
+Sdotool is a core
+[SissystemD](
+  https://github.com/themartiancompany/sissystemd)
+component.
+
 ## Installation
 
 The tool in this source repo

@@ -23,23 +23,20 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-_bin="$( \
+_bin="$(
   dirname \
-    "$( \
-      command \
+    "$(command \
         -v \
-	  "env")")"
+        "env")")"
 _lib="$( \
   realpath \
     "${_bin}/../lib")"
 _crash_bash="${_lib}/libcrash-bash/crash-bash"
-_libevm="${_lib}/libevm/libevm"
 _sourced \
-  "${_crash_bash}" 2>/dev/null || \
+  "${_crash_bash}" \
+  2>"/dev/null" || \
   source \
     "${_crash_bash}"
-_sourced \
-  "${_libevm}"
 
 # shellcheck disable=SC2034
 _global_variables() {
@@ -66,11 +63,11 @@ _key_send() {
     _cmd=()
   _msg_info \
     "Sending key '${_key}'"
-  _keyevent="$( \
+  _keyevent="$(
     _keyevent_get \
       "${_key}")"
   if [[ "${_keyevent}" == "" ]]; then
-    _keyevent="$( \
+    _keyevent="$(
       key2keyevent \
         "${_key}")"
     if [[ "${_keyevent}" == "" ]]; then
@@ -176,6 +173,9 @@ usage:
        <symbol>
 
   options:
+
+     -a                   Prints a list of all the possible
+                          symbols which can be sent.
      -h                   This message.
      -c                   Enable color output
      -v                   Enable verbose output
@@ -274,20 +274,11 @@ else
 fi
 _set_overrides
 _config_user_init \
-  "$( \
-    _get \
-      "app" \
-      "name")"
+  "${app_name}"
 _show_config
 app_opts=(
-  "$( \
-    _get \
-      "target" \
-      "command")"
-  "$( \
-    _get \
-      "target" \
-      "key")"
+  "${target_command}"
+  "${target_key}"
 )
 _sdotool \
   "${app_opts[@]}"

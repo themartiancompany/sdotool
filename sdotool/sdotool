@@ -150,11 +150,13 @@ _keyaction_send() {
       "Running 'sendevent'"
       "with arguments '${_action_args[*]}'."
     )
+    _msg_info \
+      "${_msg[*]}"
     _cmd=(
-      sendevent \
+      sendevent
         "${action_args[@]}"
       "&&"
-      sendevent \
+      sendevent
         "${_sendevent_args[@]}"
         "${_null_event[@]}"
     )

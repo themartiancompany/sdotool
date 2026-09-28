@@ -28,7 +28,7 @@ _bin="$(
     "$(command \
         -v \
         "env")")"
-_lib="$( \
+_lib="$(
   realpath \
     "${_bin}/../lib")"
 _crash_bash="${_lib}/libcrash-bash/crash-bash"
@@ -176,6 +176,7 @@ _set_overrides() {
 # $1: exit status number.
 _usage() {
   local \
+    _exit_code="${1}" \
     _usage_text
   IFS='' \
     read \
@@ -208,7 +209,7 @@ ENDUSAGETEXT
     '%s\n' \
     "${_usage_text}"
   exit \
-    "${1}"
+    "${_exit_code}"
 }
 
 _display_flags() {
@@ -234,7 +235,7 @@ _show_config() {
       '%(%FT%R%z)T' \
       "${SOURCE_DATE_EPOCH}"
   _msg_info "${app_name} configuration"
-  _msg_info "           Operation date:   ${get_date}"
+  _msg_info "           Operation date:   ${_get_date}"
   _msg_info "           Target command:   ${target_command}"
   _msg_info "              Target keys:   ${target_keys[*]}"
 }

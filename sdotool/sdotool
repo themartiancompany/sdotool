@@ -230,6 +230,19 @@ _sdotool() {
     "${_args[@]}"
 }
 
+_event_device_auto_detect() {
+  local \
+    _event_device
+  _event_device="/dev/input/event0"
+  # TODO:
+  #   write some proper auto-detect
+  #   routine
+  _set_override \
+    "event" \
+    "device" \
+    "${_event_device}"
+}
+
 _set_overrides() {
   if [[ -v override_quiet ]]; then
     quiet="${override_quiet}"
@@ -245,6 +258,7 @@ _set_overrides() {
     "print" \
     "keyevents" \
     "n"
+  _event_device_auto_detect
 }
 
 # Show help usage, with an exit status.

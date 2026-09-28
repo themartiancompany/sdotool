@@ -155,7 +155,7 @@ _keyaction_send() {
       "${_msg[*]}"
     _cmd=(
       "/system/bin/sendevent"
-        "${action_args[@]}"
+        "${_action_args[@]}"
     )
     su \
       -c \

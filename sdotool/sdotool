@@ -154,14 +154,14 @@ _keyaction_send() {
     _msg_info \
       "${_msg[*]}"
     _cmd=(
-      sendevent
+      "/system/bin/sendevent"
         "${action_args[@]}"
     )
     su \
       -c \
         "${_cmd[*]}"
     _cmd=(
-      sendevent
+      "/system/bin/sendevent"
         "${_null_args[@]}"
     )
     su \

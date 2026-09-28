@@ -155,9 +155,6 @@ _keyaction_send() {
   done
 }
 
-_keyup_send() {
-}
-
 _keyevents_get() {
   local \
     _key2keyevent_opts=()

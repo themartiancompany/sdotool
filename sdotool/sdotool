@@ -234,9 +234,9 @@ _show_config() {
       '%(%FT%R%z)T' \
       "${SOURCE_DATE_EPOCH}"
   _msg_info "${app_name} configuration"
-  _msg_info "           Operation date:   $(_get "_get" "date")"
-  _msg_info "           Target command:   $(_get "target" "command")"
-  _msg_info "               Target key:   $(_get "target" "key")"
+  _msg_info "           Operation date:   ${get_date}"
+  _msg_info "           Target command:   ${target_command}"
+  _msg_info "              Target keys:   ${target_keys[*]}"
 }
 
 _globals
@@ -272,8 +272,11 @@ shift \
     OPTIND - 1 \
   ))
 if (( $# < 1 )); then
+  _msg=(
+    "No command given."
+  )
   _msg_error \
-    "no command given" \
+    "${_msg[*]}" \
     0
   _set_overrides
   _usage \
@@ -288,7 +291,7 @@ if (( 0 < $# )); then
   )
 else
   _msg=(
-    "No argument given."
+    "No arguments given."
   )
   _msg_error \
     "${_msg[*]}" \

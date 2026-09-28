@@ -41,7 +41,7 @@ _sourced \
 # shellcheck disable=SC2034
 _global_variables() {
   target_command=""
-  target_key=""
+  target_keys=()
   target_value=""
   color=""
   quiet=""
@@ -139,15 +139,20 @@ _keyevent_get() {
 _sdotool() {
   local \
     _command="${1}" \
-    _value="${2}" \
+    _keys=() \
     _args=() \
     _app \
     _prefs \
     _obj
+  shift \
+    1
+  _keys+=(
+    "$@"
+  )
   if [[ "${_command}" == "key" ]]; then
     _cmd="key_send"
     _args+=(
-      "${_value}"
+      "${_keys[@]}"
     )
   fi
   "_${_cmd}" \
@@ -274,18 +279,19 @@ if (( $# < 1 )); then
   _usage \
     1
 fi
-_set \
-  "target" \
-  "command" \
-  "${1}"
+target_command="${1}"
+shift \
+  1
 if (( 1 < $# )); then
-  _set \
-    "target" \
-    "key" \
-    "${2}"
+  target_keys+=(
+    "$@"
+  )
 else
+  _msg=(
+    "No argument given."
+  )
   _msg_error \
-    "no argument given" \
+    "${_msg[*]}" \
     0
   _set_overrides
   _usage \
@@ -297,7 +303,7 @@ _config_user_init \
 _show_config
 app_opts=(
   "${target_command}"
-  "${target_key}"
+  "${target_keys[@]}"
 )
 _sdotool \
   "${app_opts[@]}"

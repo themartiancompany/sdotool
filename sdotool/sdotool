@@ -163,14 +163,26 @@ _keyaction_send() {
   _keys+=(
     "$@"
   )
-  if [[ "${_action}" == "down" ]]; then
+  if [[ "${_action}" == "down" || \
+        "${_action}" == "" ]]; then
     _action_modifier=1
   elif [[ "${_action}" == "up" ]]; then
     _action_modifier=0
+  else
+    _msg=(
+      "Unknown key action"
+      "'${_action}'."
+    )
+    _msg_error \
+      "${_msg[*]}" \
+      1
   fi
   for _key in "${_keys[@]}"; do
+    _keyevent="$(
+      key2keyevent \
+        "${_key}")"
     _action_event=(
-      1 "${_key}" "${_action_modifier}"
+      1 "${_keyevent}" "${_action_modifier}"
     )
     _action_args=(
       "${_sendevent_args[@]}"

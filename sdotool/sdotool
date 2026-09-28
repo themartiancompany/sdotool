@@ -157,14 +157,18 @@ _keyaction_send() {
       sendevent
         "${action_args[@]}"
     )
-    sudo \
-      "${_cmd[@]}"
+    su \
+      -c \
+        "${_cmd[*]}"
     _cmd=(
       sendevent
         "${_null_args[@]}"
     )
-    sudo \
-      "${_cmd[@]}"
+    su \
+      -c \
+        "${_cmd[*]}"
+    # sudo \
+    #   "${_cmd[@]}"
   done
 }
 

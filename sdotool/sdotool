@@ -58,36 +58,55 @@ _requirements() {
 
 _key_send() {
   local \
-    _key="${1}" \
+    _keys=() \
+    _key
     _keyevent \
     _cmd=()
-  _msg_info \
-    "Sending key '${_key}'"
-  _keyevent="$(
-    _keyevent_get \
-      "${_key}")"
-  if [[ "${_keyevent}" == "" ]]; then
+  _keys+=(
+    "$@"
+  )
+  for _key in "${_keys[@]}"; do
+    _msg=(
+      "Sending key '${_key}'"
+    )
+    _msg_info \
+      "${_msg[*]}"
     _keyevent="$(
-      key2keyevent \
+      _keyevent_get \
         "${_key}")"
     if [[ "${_keyevent}" == "" ]]; then
-      _msg_error \
-        "key not recorded" \
-        1
+      _keyevent="$(
+        key2keyevent \
+          "${_key}")"
+      if [[ "${_keyevent}" == "" ]]; then
+        _msg=(
+          "Key '${_key}' not recorded."
+        )
+        _msg_error \
+          "${_msg[*]}" \
+          1
+      fi
+      _msg=(
+        "Sending ${_key} -> ${_keyevent}."
+      )
+      _msg_info \
+        "${_msg[*]}"
+    else
+      _msg=(
+        "Sending ${_key} -> ${_keyevent}."
+      )
+      _msg_info \
+        "${_msg[*]}"
     fi
-    _msg_info \
-      "sending ${_key} -> ${_keyevent}"
-  else
-    _msg_info \
-      "sending ${_key} -> ${_keyevent}"
-  fi
-  _cmd=(
-    input
-      keyevent
-      "${_keyevent}"
-    )
-  sudo \
-    "${_cmd[@]}"
+    _cmd=(
+      input
+        keyevent
+        "${_keyevent}"
+      )
+    sudo \
+      "${_cmd[@]}"
+  done
+  true
 }
 
 _keyevent_get() {

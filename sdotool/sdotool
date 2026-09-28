@@ -58,6 +58,36 @@ _requirements() {
     "sudo"
 }
 
+# Probably needed for xdotool arguments
+# compatibility, I don't remember.
+_keyevent_get() {
+  local \
+    _key="${1}" \
+    _keyevent
+  if [[ "${_key}" == "Space" ]]; then
+    _keyevent=62
+  elif [[ "${_key}" == "Back" ]]; then
+    _keyevent=4
+  elif [[ "${_key}" == "Enter" ]]; then
+    _keyevent=66
+  elif [[ "${_key}" == "Down" ]]; then
+    _keyevent=20
+  elif [[ "${_key}" == "Up" ]]; then
+    _keyevent=19
+  elif [[ "${_key}" == "Left" ]]; then
+    _keyevent=21
+  elif [[ "${_key}" == "Right" ]]; then
+    _keyevent=22
+  elif [[ "${_key}" == "Unlock" ]]; then
+    _keyevent=82
+  else
+    _keyevent=""
+  fi
+  echo \
+    "${_keyevent}"
+}
+
+
 _key_send() {
   local \
     _keys=() \

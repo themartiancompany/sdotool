@@ -59,7 +59,7 @@ _requirements() {
 _key_send() {
   local \
     _keys=() \
-    _key
+    _key \
     _keyevent \
     _cmd=()
   _keys+=(

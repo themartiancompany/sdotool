@@ -148,7 +148,8 @@ _keyaction_send() {
     )
     _msg=(
       "Running 'sendevent'"
-      "with arguments '${_action_args[*]}'."
+      "with arguments '${_action_args[*]}'"
+      "and '${_null_args[*]}'."
     )
     _msg_info \
       "${_msg[*]}"

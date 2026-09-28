@@ -188,8 +188,8 @@ usage:
     (<argument>)
 
   commands:
-     key         Send key event corresponding to symbol
-       <symbol>
+     key                  Send key event corresponding to symbol
+                          <symbol>
 
   options:
 

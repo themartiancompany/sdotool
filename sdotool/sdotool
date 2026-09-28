@@ -150,8 +150,9 @@ _keyaction_send() {
         "${_sendevent_args[@]}" \
         "${_null_event[@]}"
     )
-    sudo \
-      "${_cmd[*]}"
+    su \
+      -c \
+        "${_cmd[*]}"
   done
 }
 

@@ -117,15 +117,16 @@ _keyaction_send() {
     _action="${2}" \
     _keys=() \
     _key \
-    _null_event=() \
-    _action_event=() \
+    _null_args=() \
+    _action_args=() \
     _sendevent_args=() \
     _cmd=()
   _sendevent_args+=(
     "${_event_device}"
   )
-  _null_event+=(
-    "${_event_device}"
+  _null_args+=(
+    "${_sendevent_args[@]}"
+    0 0 0
   )
   shift \
     2
@@ -141,13 +142,20 @@ _keyaction_send() {
     _action_event=(
       1 "${_key}" "${_action_modifier}"
     )
+    _action_args=(
+      "${_sendevent_args[@]}"
+      "${_action_event[@]}"
+    )
+    _msg=(
+      "Running 'sendevent'"
+      "with arguments '${_action_args[*]}'."
+    )
     _cmd=(
       sendevent \
-        "${_sendevent_args[@]}" \
-        "${_action_event[@]}"
+        "${action_args[@]}"
       "&&"
       sendevent \
-        "${_sendevent_args[@]}" \
+        "${_sendevent_args[@]}"
         "${_null_event[@]}"
     )
     su \
